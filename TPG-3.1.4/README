@@ -1,0 +1,6 @@
+Please see http://cdsoft.fr/tpg/ for an uptodate documentation.
+
+To install TPG just run "python setup.py install"
+
+WARNING: If you have TPG 3.0.0 or previous installed you need
+to remove it before upgrading.

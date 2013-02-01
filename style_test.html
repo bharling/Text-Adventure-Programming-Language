@@ -1,0 +1,84 @@
+<html>
+    <head>
+      <link rel="stylesheet" href="static/css/tapl.css"/>
+      <script type='application/javascript' src='static/js/jquery-1.6.2.min.js'></script>
+      <script type='application/javascript'>
+        $(document).ready(function() {
+
+          websocket = 'ws://%(host)s:%(port)s/ws';
+          if (window.WebSocket) {
+            ws = new WebSocket(websocket);
+          }
+          else if (window.MozWebSocket) {
+            ws = MozWebSocket(websocket);
+          }
+          else {
+            console.log('WebSocket Not Supported');
+            return;
+          }
+
+          $(window).unload(function() {
+             ws.close();
+          });
+          ws.onmessage = function (evt) {
+             $('#chat').html($('#chat').html() + evt.data);
+             $('#chat').scrollTop(
+                     $('#chat')[0].scrollHeight - $('#chat').height()
+             );
+          };
+          ws.onopen = function() {
+             ws.send("__JOIN__GAME__");
+          };
+
+          $('#chatform').submit(function() {
+               console.log($('#message').val());
+                ws.send($('#message').val());
+                 $('#message').val("");
+                 
+
+             return false;
+    
+          });
+
+          /*$('#send').click(function() {
+             console.log($('#message').val());
+             ws.send($('#message').val());
+             $('#message').val("");
+            
+
+
+             return false;
+          });*/
+        });
+      </script>
+    </head>
+    <body>
+    <div id="container">
+        <div id="chat">
+        	<!-- Test Element Display in here -->
+        	<div class='notification'><p>A Notification</p></div>
+        	<div class='confirmation'><img src='static/images/tick.png' align='left'><p>A Confirmation</p></div>
+        	<div class='alert'><img src='static/images/tick.png' align='left'><p>A Confirmation</p></div>
+        	<div class='speech'>
+        		
+                	<img src='http://www.gravatar.com/avatar/dd53ad949144475c9e4ce9dfee4821e6.png' align='left' /><br/>
+                	<span class='player_name'>Ben The Maker</span>
+                
+                <p>
+                	<span>I say I say I say!</span>
+                </p>
+          	</div>
+        	
+        	
+        	
+        	
+        </div>
+        <form action='#' id='chatform' method='get'>
+          <!--<textarea id='chat' cols='80' rows='40'></textarea>-->
+          <br />
+          <label for='message'>%(username)s: </label><input type='text' id='message' />
+          <input id='send' type='submit' value='Send' />
+        </form>
+      </div>
+    </body>
+    </html>
