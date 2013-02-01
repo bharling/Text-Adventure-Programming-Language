@@ -16,8 +16,11 @@ The server is implemented in cherrypy, but could easily be ported to any python 
 dependencies
 ------------
 python 2.7+ -> http://www.python.org
+
 pyparsing -> http://pyparsing.wikispaces.com/
+
 cherrypy -> http://www.cherrypy.org/
+
 Websocket for python -> https://github.com/Lawouach/WebSocket-for-Python
 
 
